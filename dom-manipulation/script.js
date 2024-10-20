@@ -7,7 +7,7 @@ let quotes = [
     { text: "You miss 100% of the shots you don't take.", category: "Motivation" }
 ]
 
-function showRandomQuotes() {
+function dispalyRandomQuotes() {
     let number = quotes.length;
     let randomIndex = Math.floor(Math.random() * number);
 
