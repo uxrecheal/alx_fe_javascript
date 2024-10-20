@@ -20,7 +20,7 @@ let newQuoteBtn = document.getElementById('newQuote')
 newQuoteBtn.addEventListener('click',showRandomQuote);
 console.log(showRandomQuote());
 
-function addQuote(){
+function createAddQuoteForm(){
     let newQuoteText = document.getElementById('newQuoteText').value
     let newQuoteCategory = document.getElementById('newQuoteCategory').value
    quotes.push({text : newQuoteText , category : newQuoteCategory})
