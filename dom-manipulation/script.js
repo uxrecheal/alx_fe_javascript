@@ -7,7 +7,7 @@ let quotes = [
     { text: "You miss 100% of the shots you don't take.", category: "Motivation" }
 ]
 
-function dispalyRandomQuotes() {
+function displayRandomQuote() {
     let number = quotes.length;
     let randomIndex = Math.floor(Math.random() * number);
 
@@ -17,8 +17,8 @@ function dispalyRandomQuotes() {
 
 }
 let newQuoteBtn = document.getElementById('newQuote')
-newQuoteBtn.addEventListener('click',showRandomQuotes);
-console.log(showRandomQuotes());
+newQuoteBtn.addEventListener('click',displayRandomQuote);
+console.log(displayRandomQuote());
 
 function addQuote(){
     let newQuoteText = document.getElementById('newQuoteText').value
