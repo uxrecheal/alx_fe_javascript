@@ -37,15 +37,19 @@ let quotes = JSON.parse(localStorage.getItem("quotes")) || [
     }
   }
   
-  // Create a new quote and update the display
-  function createAddQuoteForm() {
+  // Create a new quote and update the display, then POST it to the server
+  async function createAddQuoteForm() {
     let newQuoteText = document.getElementById("newQuoteText").value;
     let newQuoteCategory = document.getElementById("newQuoteCategory").value;
   
-    quotes.push({ text: newQuoteText, category: newQuoteCategory });
+    const newQuote = { text: newQuoteText, category: newQuoteCategory };
+    quotes.push(newQuote);
     saveQuotes(); // Save new quote to local storage
-    
+  
     populateCategories(); // Update the categories dropdown
+    
+    // POST the new quote to the server
+    await postNewQuoteToServer(newQuote);
   }
   
   // Populate categories dynamically
@@ -124,15 +128,40 @@ let quotes = JSON.parse(localStorage.getItem("quotes")) || [
     fileReader.readAsText(event.target.files[0]);
   }
   
-  // Fetch server quotes and sync them with local storage
+  // GET method to fetch quotes from the server and sync with local storage
   async function fetchServerQuotes() {
     try {
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts"); // Replace with actual mock API
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts"); // Replace with actual API
       const serverQuotes = await response.json();
       
       await syncQuotesWithServer(serverQuotes); // Sync with local quotes
     } catch (error) {
       console.error("Error fetching quotes from the server:", error);
+    }
+  }
+  
+  // POST method to send new quotes to the server
+  async function postNewQuoteToServer(newQuote) {
+    try {
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        body: JSON.stringify({
+          title: newQuote.text, 
+          body: newQuote.category
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Posted new quote to server:", data);
+      } else {
+        console.error("Failed to post quote:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error posting quote to server:", error);
     }
   }
   
