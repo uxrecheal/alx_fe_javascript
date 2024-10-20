@@ -129,6 +129,7 @@ let quotes = JSON.parse(localStorage.getItem("quotes")) || [
   }
   
   // GET method to fetch quotes from the server and sync with local storage
+  
   async function fetchServerQuotes() {
     try {
       const response = await fetch("https://jsonplaceholder.typicode.com/posts"); // Replace with actual API
@@ -139,6 +140,7 @@ let quotes = JSON.parse(localStorage.getItem("quotes")) || [
       console.error("Error fetching quotes from the server:", error);
     }
   }
+  
   
   // POST method to send new quotes to the server
   async function postNewQuoteToServer(newQuote) {
